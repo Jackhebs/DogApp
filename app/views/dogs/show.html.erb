@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="jumbotron">
+  <h1 class="display-4"><%= @dog.name %></h1>
+  <p class="lead"><%= @dog.birthdate %> Birthdate | <%= @dog.weight %> kg </p>
+  <hr class="my-4">
+  <p>Some Information HERE</p>
+  <p class="lead">
+    <%= link_to 'Edit', edit_dog_path(@dog), class:"btn btn-secondary"%>
+    <%= link_to 'Back', dogs_path, class:"btn btn-secondary"%>
+  </p>
+</div>

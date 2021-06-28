@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Dogs</h1>
 
-<table>
-  <thead>
+<table class="table table-bordered">
+  <thead class="thead-dark">
     <tr>
       <th>Name</th>
       <th>Weight</th>
@@ -18,9 +17,9 @@
         <td><%= dog.name %></td>
         <td><%= dog.weight %></td>
         <td><%= dog.birthdate %></td>
-        <td><%= link_to 'Show', dog %></td>
-        <td><%= link_to 'Edit', edit_dog_path(dog) %></td>
-        <td><%= link_to 'Destroy', dog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', dog,  class:"btn btn-outline-dark" %></td>
+        <td><%= link_to 'Edit', edit_dog_path(dog), class:"btn btn-outline-dark" %></td>
+        <td><%= link_to 'Destroy', dog, method: :delete, data: { confirm: 'Are you sure?' },  class:"btn btn-outline-dark" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Dog', new_dog_path %>
+<%= link_to 'New Dog', new_dog_path,class:"btn btn-secondary"%>

@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dog1:
+  name: dolar
+  weight: 37
+  birthdate: 2021-06-21 12:27:22
+
