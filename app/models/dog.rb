@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class Dog < ApplicationRecord
-  validates :name, presence: true
-  validates :name, length: { minimum: 3 }
-  validates :name, uniqueness: { case_sensitive: false }
-  validates :weight, presence: true,
+  validates :name,
+            presence: true,
+            format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' },
+            length: { minimum: 3 },
+            uniqueness: { case_sensitive: false }
+            # inclusion: { in: [''], message:'must be a dog name' }
+  validates :weight,
+            presence: true,
             numericality: { greater_than: 0, less_than: 161 }
 
   def information; end
