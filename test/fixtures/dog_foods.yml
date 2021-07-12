@@ -1,6 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-brit_care:
-  name: BritCare
-  food_type: granule
-  weight: 12
+dog_food1:
+  dog: dog1
+  food: brit_care
+
+dog_food2:
+  dog: dog2
+  food: brit_care

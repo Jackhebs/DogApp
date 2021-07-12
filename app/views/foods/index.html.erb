@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Foods</h1>
 
-<table>
-  <thead>
+<table class="table table-bordered">
+  <thead class="thead-dark">
     <tr>
       <th>Name</th>
       <th>Type</th>
@@ -16,11 +15,11 @@
     <% @foods.each do |food| %>
       <tr>
         <td><%= food.name %></td>
-        <td><%= food.type %></td>
+        <td><%= food.food_type %></td>
         <td><%= food.weight %></td>
-        <td><%= link_to 'Show', food %></td>
-        <td><%= link_to 'Edit', edit_food_path(food) %></td>
-        <td><%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', food, class:"btn btn-outline-dark" %></td>
+        <td><%= link_to 'Edit', edit_food_path(food), class:"btn btn-outline-dark" %></td>
+        <td><%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-dark" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Food', new_food_path %>
+<%= link_to 'New Food', new_food_path, class: "btn btn-secondary" %>

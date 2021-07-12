@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class Dog < ApplicationRecord
+  has_many :dog_foods
+
   validates :name,
             presence: true,
             format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' },
-            length: { minimum: 3 },
+            length: { minimum: 3, message:'must be greater than two letters' },
             uniqueness: { case_sensitive: false }
-            # inclusion: { in: [''], message:'must be a dog name' }
   validates :weight,
             presence: true,
             numericality: { greater_than: 0, less_than: 161 }
+  validates :birthdate,
+            presence: true,
+            numericality: {greater_than: 0 }
 
   def information; end
 

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_063334) do
+ActiveRecord::Schema.define(version: 2021_07_05_071516) do
+
+  create_table "dog_foods", force: :cascade do |t|
+    t.integer "dog_id", null: false
+    t.integer "food_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dog_id"], name: "index_dog_foods_on_dog_id"
+    t.index ["food_id"], name: "index_dog_foods_on_food_id"
+  end
 
   create_table "dogs", force: :cascade do |t|
     t.string "name"
@@ -22,10 +31,12 @@ ActiveRecord::Schema.define(version: 2021_06_28_063334) do
 
   create_table "foods", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.integer "food_type", null: false
     t.float "weight"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "dog_foods", "dogs"
+  add_foreign_key "dog_foods", "foods"
 end

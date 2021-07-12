@@ -1,6 +1,9 @@
 <h1>Editing Food</h1>
 
-<%= render 'form', food: @food %>
+<br>
 
-<%= link_to 'Show', @food %> |
-<%= link_to 'Back', foods_path %>
+<%= render 'form', food: @food %>
+<br>
+<%= link_to 'Show', @food, class:"btn btn-secondary" %>
+
+<%= link_to 'Back', foods_path, class:"btn btn-secondary" %>

@@ -49,6 +49,9 @@ class DogsController < ApplicationController
 
   # DELETE /dogs/1 or /dogs/1.json
   def destroy
+    @dog.dog_foods.each do |dog_food|
+      dog_food.destroy
+    end
     @dog.destroy
     respond_to do |format|
       format.html { redirect_to dogs_url, notice: "Dog was successfully destroyed." }

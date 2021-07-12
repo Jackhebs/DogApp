@@ -3,9 +3,23 @@
 
 <div class="jumbotron">
   <h1 class="display-4"><%= @dog.name %></h1>
-  <p class="lead"><%= @dog.birthdate %> Birthdate | <%= @dog.weight %> kg </p>
+  <p class="lead"><%= @dog.birthdate.to_date %> Birthdate | <%= @dog.weight %> kg </p>
   <hr class="my-4">
   <p>Some Information HERE</p>
+
+  <table>
+    <thead>
+    <th>Food</th>
+    </thead>
+    <tbody>
+    <% @dog.dog_foods.each do |dog_food| %>
+      <tr>
+        <td><%= dog_food.food.name %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
   <p class="lead">
     <%= link_to 'Edit', edit_dog_path(@dog), class:"btn btn-secondary"%>
     <%= link_to 'Back', dogs_path, class:"btn btn-secondary"%>

@@ -2,7 +2,7 @@ require "test_helper"
 
 class FoodsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @food = foods(:one)
+    @food = foods(:brit_care)
   end
 
   test "should get index" do
@@ -17,7 +17,7 @@ class FoodsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create food" do
     assert_difference('Food.count') do
-      post foods_url, params: { food: { name: @food.name, type: @food.type, weight: @food.weight } }
+      post foods_url, params: { food: { name: @food.name, food_type: @food.food_type, weight: @food.weight} }
     end
 
     assert_redirected_to food_url(Food.last)
@@ -34,7 +34,7 @@ class FoodsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update food" do
-    patch food_url(@food), params: { food: { name: @food.name, type: @food.type, weight: @food.weight } }
+    patch food_url(@food), params: { food: { name: @food.name, food_type: @food.food_type, weight: @food.weight } }
     assert_redirected_to food_url(@food)
   end
 
