@@ -17,4 +17,10 @@ class FoodTest < ActiveSupport::TestCase
     refute food.valid?
     assert_includes food.errors[:weight], 'Value in 0 - 1000'
   end
+  test '#maximum length - is 20' do
+    food = foods(:brit_care)
+    food.name = "qwertzuiopqwertzuiopd"
+    refute food.valid?
+    assert_includes food.errors[:name], 'maximum length is 20'
+  end
 end

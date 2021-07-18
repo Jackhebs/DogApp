@@ -10,5 +10,5 @@ class Food < ApplicationRecord
                       numericality: { greater_than: 0, less_than_or_equal_to: 1000, message: 'Value in 0 - 1000'}
   validates :name, presence: true,
                    format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' },
-                   length: {maximum: 20}
+                   length: {maximum: 20, message: 'maximum length is 20'}
 end
