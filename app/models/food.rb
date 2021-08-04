@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Food < ApplicationRecord
+  has_many :dog_foods, dependent: :destroy
+  scope :food_by_name, -> {order('Lower(name) ASC') }
+  accepts_nested_attributes_for :dog_foods, allow_destroy: true
   enum food_type: { granule: 0,
                     can: 1,
                     barf: 2 }

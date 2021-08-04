@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Dog < ApplicationRecord
-  has_many :dog_foods
+  has_many :dog_foods, dependent: :destroy
+  scope :dog_by_name, -> { order('LOWER(name) ASC') }
+  #scope :dog_by_name33, -> {all.to_a.sort_by(&:name )}
+  #scope :name_starts_with, ->(prefix) { where("name LIKE '#{prefix}%'") }
+  accepts_nested_attributes_for :dog_foods, allow_destroy: true
 
   validates :name,
             presence: true,
@@ -25,4 +29,13 @@ class Dog < ApplicationRecord
       months: (months % 12)
     }
   end
-end
+
+  def all_dog_foods
+    res = []
+    Food.find_each do |food|
+      res << DogFood.find_or_initialize_by(food: food, dog: self)
+    end
+    res
+  end
+  end
+

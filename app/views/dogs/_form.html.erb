@@ -15,7 +15,6 @@
     <% form.label :name %>
     <%= form.text_field :name,class:"form-control",placeholder:"Name" %>
   </div>
-
   <div class="field form-group">
     <% form.label :weight %>
     <%= form.number_field :weight,class:"form-control",placeholder:"Weight" %>
@@ -26,7 +25,20 @@
     <%= form.date_select :birthdate,class:"form-control" %>
   </div>
 
-  <div class="actions">
+  <hr>
+
+  <%= form.fields_for :dog_foods, dog.all_dog_foods do |dog_food_fields| %>
+
+      <%= dog_food_fields.object.food.name%>
+    <%= dog_food_fields.check_box :_destroy, {checked:  dog_food_fields.object.persisted?}, '0', '1' %>
+      <%= dog_food_fields.hidden_field :food_id %>
+    <br>
+    <br>
+    <% end %>
+  <hr>
+
+
+    <div class="actions">
     <%= form.submit class:'btn btn-secondary'%>
   </div>
 <% end %>

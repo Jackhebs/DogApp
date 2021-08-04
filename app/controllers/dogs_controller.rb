@@ -3,7 +3,7 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
-    @dogs = Dog.all
+    @dogs = Dog.dog_by_name
   end
 
   # GET /dogs/1 or /dogs/1.json
@@ -67,6 +67,6 @@ class DogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dog_params
-      params.require(:dog).permit(:name, :weight, :birthdate)
+      params.require(:dog).permit(:name, :weight, :birthdate, dog_foods_attributes: [ :id, :_destroy, :food_id ])
     end
 end

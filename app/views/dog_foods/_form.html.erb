@@ -1,10 +1,10 @@
-<%= form_with(model: dog_food) do |form| %>
-  <% if dog_food.errors.any? %>
+<%= form_with(model: @dog_food) do |form| %>
+  <% if @dog_food.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(dog_food.errors.count, "error") %> prohibited this dog_food from being saved:</h2>
+      <h2><%= pluralize(@dog_food.errors.count, "error") %> prohibited this dog_food from being saved:</h2>
 
       <ul>
-        <% dog_food.errors.each do |error| %>
+        <% @dog_food.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

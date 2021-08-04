@@ -3,7 +3,8 @@ class DogFoodsController < ApplicationController
 
   # GET /dog_foods or /dog_foods.json
   def index
-    @dog_foods = DogFood.all
+    @dog_foods = DogFood.dog_food_name
+    @dog_food = DogFood.food_by_dog
   end
 
   # GET /dog_foods/1 or /dog_foods/1.json
