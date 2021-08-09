@@ -32,7 +32,7 @@ class DogTest < ActiveSupport::TestCase
     dog = dogs(:dog1)
     dog.name = 'ok'
     refute dog.valid?
-    assert_includes dog.errors[:name], 'must be greater than two letters'
+    assert_includes dog.errors[:name], 'Dog name must be - minimum 3, maximum 10'
   end
 
   test' invalid without name' do

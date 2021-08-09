@@ -10,14 +10,13 @@ class Dog < ApplicationRecord
   validates :name,
             presence: true,
             format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' },
-            length: { minimum: 3, message:'must be greater than two letters' },
+            length: { minimum: 3, message:'Dog name must be - minimum 3, maximum 10', maximum: 10,},
             uniqueness: { case_sensitive: false }
   validates :weight,
             presence: true,
             numericality: { greater_than: 0, less_than: 161 }
   validates :birthdate,
-            presence: true,
-            numericality: {greater_than: 0 }
+            presence: true
 
   def information; end
 
@@ -37,5 +36,4 @@ class Dog < ApplicationRecord
     end
     res
   end
-  end
-
+end

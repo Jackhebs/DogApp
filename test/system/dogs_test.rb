@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class DogsTest < ApplicationSystemTestCase
   setup do
-    @dog = dogs(:one)
+    @dog = dogs(:dog1, :dog2)
   end
 
   test "visiting the index" do
