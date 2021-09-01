@@ -1,8 +1,9 @@
 require "application_system_test_case"
 
+
 class FoodsTest < ApplicationSystemTestCase
   setup do
-    @food = foods(:one)
+    @food = foods(:brit_care)
   end
 
   test "visiting the index" do
@@ -13,9 +14,10 @@ class FoodsTest < ApplicationSystemTestCase
   test "creating a Food" do
     visit foods_url
     click_on "New Food"
+    #sleep 2
 
     fill_in "Name", with: @food.name
-    fill_in "Type", with: @food.type
+    select 'Barf', from: 'food_food_type'
     fill_in "Weight", with: @food.weight
     click_on "Create Food"
 
@@ -28,10 +30,11 @@ class FoodsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @food.name
-    fill_in "Type", with: @food.type
-    fill_in "Weight", with: @food.weight
+     select 'Barf', from: 'food_food_type'
+     fill_in "Weight", with: @food.weight
     click_on "Update Food"
 
+    # assert_all_of_selectors "Type", with: (@food_type)
     assert_text "Food was successfully updated"
     click_on "Back"
   end
@@ -45,3 +48,8 @@ class FoodsTest < ApplicationSystemTestCase
     assert_text "Food was successfully destroyed"
   end
 end
+
+
+#  udělat flash message do minitestů a nastylovat je v případě chyb, sucdcesu i oznámení.
+# doplnit do minitestů že se v případě chyby renderují flash messsage
+# dodělat stylování pro stránkování will_paginate

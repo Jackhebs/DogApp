@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dog on Rails</title>
+  <link rel="stylesheet" href="_navbar.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+<nav>
+  <div class="logo">
+    <h4>Dog on Rails</h4>
+  </div>
+    <ul class="nav-links">
+      <li>
+        <%= link_to 'Home',home_path, class:"nav-link" %>
+      </li>
+
+      <li>
+        <%= link_to 'About',about_path, class:"nav-link" %>
+      </li>
+
+      <li>
+        <%= link_to 'Dogs',dogs_path, class:"nav-link" %>
+      </li>
+
+      <li>
+      <%= link_to 'Foods',foods_path, class:"nav-link" %>
+      </li>
+
+      <li>
+        <%= link_to 'DogFood',dog_foods_path, class:"nav-link" %>
+      </li>
+
+    </ul>
+
+  <div class="mobile">
+    <div class="line1"></div>
+    <div class="line2"></div>
+    <div class="line3"></div>
+  </div>
+</nav>
+<script src="dor.js"></script>
+</body>
+
+</html>

@@ -1,8 +1,8 @@
 require "application_system_test_case"
-
+require 'rails/test_help'
 class DogsTest < ApplicationSystemTestCase
   setup do
-    @dog = dogs(:dog1, :dog2)
+    @dog = dogs(:dog1)
   end
 
   test "visiting the index" do
@@ -14,8 +14,8 @@ class DogsTest < ApplicationSystemTestCase
     visit dogs_url
     click_on "New Dog"
 
-    fill_in "Birthdate", with: @dog.birthdate
-    fill_in "Name", with: @dog.name
+    # fill_in "Birthdate", with: @dog.birthdate
+    fill_in "Name", with: "#{@dog.name}new"
     fill_in "Weight", with: @dog.weight
     click_on "Create Dog"
 
@@ -27,7 +27,7 @@ class DogsTest < ApplicationSystemTestCase
     visit dogs_url
     click_on "Edit", match: :first
 
-    fill_in "Birthdate", with: @dog.birthdate
+    #fill_in "Birthdate", with: @dog.birthdate
     fill_in "Name", with: @dog.name
     fill_in "Weight", with: @dog.weight
     click_on "Update Dog"

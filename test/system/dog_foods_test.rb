@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class DogFoodsTest < ApplicationSystemTestCase
   setup do
-    @dog_food = dog_foods(:one)
+    @dog_food = dog_foods(:dog_food1)
   end
 
   test "visiting the index" do
@@ -14,11 +14,21 @@ class DogFoodsTest < ApplicationSystemTestCase
     visit dog_foods_url
     click_on "New Dog Food"
 
-    fill_in "Dog", with: @dog_food.dog_id
-    fill_in "Food", with: @dog_food.food_id
+    select "chuj", from: "dog_food_dog_id"
+    select "jogies", from: "dog_food_food_id"
     click_on "Create Dog food"
-
     assert_text "Dog food was successfully created"
+    click_on "Back"
+  end
+  test "creating a Dog food - cannot duplicate existing record" do
+    dog_food = DogFood.last
+    visit dog_foods_url
+    click_on "New Dog Food"
+
+    select dog_food.dog.name, from: "dog_food_dog_id"
+    select dog_food.food.name, from: "dog_food_food_id"
+    click_on "Create Dog food"
+    assert_text "Dog has already been taken"
     click_on "Back"
   end
 
@@ -26,9 +36,25 @@ class DogFoodsTest < ApplicationSystemTestCase
     visit dog_foods_url
     click_on "Edit", match: :first
 
-    fill_in "Dog", with: @dog_food.dog_id
-    fill_in "Food", with: @dog_food.food_id
+    select "dolar", from: "dog_food_dog_id"
+    select "britcare", from: "dog_food_food_id"
     click_on "Update Dog food"
+
+    assert_text "Dog food was successfully updated"
+    click_on "Back"
+  end
+
+  test "updating a Dog food - cannot update an invalid record" do
+
+    visit dog_foods_url
+    click_on "Edit", match: :first
+
+    select "dolar", from: "dog_food_dog_id"
+    select "britcare", from: "dog_food_food_id"
+
+    dogs(:dog1).destroy!
+    click_on "Update Dog food"
+    sleep 10
 
     assert_text "Dog food was successfully updated"
     click_on "Back"
