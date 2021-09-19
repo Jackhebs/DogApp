@@ -14,7 +14,7 @@
 .pear_pagination .current {
   font-style: normal;
   font-weight: bold;
-  background-color: #ffffff;
+  background-color: #efeded;
   display: inline-block;
   width: 1.4em;
   height: 1.4em;
@@ -33,7 +33,7 @@
 }
 .pear_pagination ul{
   display: flex;
-  background: #ffffff;
+  background: #efeded;
   padding: 8px;
   border-radius: 50px;
 }

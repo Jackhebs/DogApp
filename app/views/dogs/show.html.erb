@@ -1,9 +1,21 @@
-<p id="notice">
+
 
 
 <div class="jumbotron">
   <h1 class="display-4"><%= @dog.name %></h1>
-  <p class="lead"><%= @dog.birthdate.to_date %> Birthdate | <%= @dog.weight %> kg </p>
+  <br>
+  <div style="width:300px;height:auto">
+    <% if @dog.image.attached? %>
+      <%= link_to image_tag(@dog.image, style: 'width:100%') %>
+    <% else %>
+      <%= image_tag("logos/dog--v5.png", width: '70px') %>
+      <% end %>
+  </div>
+  <br>
+  <br>
+  <p class="lead"> Birthdate: <%= @dog.birthdate.to_date %>
+    <br>
+     Weight: <%= @dog.weight %> kg </p>
   <hr class="my-4">
   <p>Some Information HERE</p>
 

@@ -4,11 +4,18 @@ class DogsController < ApplicationController
   # GET /dogs or /dogs.json
   def index
     @dogs = Dog.dog_by_name.paginate(:page=>params[:page], per_page:5)
+    if params[:search]
+     search_dog
+    @dogs = Dog.find, search_path; redirect_to => dogs_path;(@dog)
+    @dogs = Dog.dog_by_name.find
+
+    end
 
   end
 
   # GET /dogs/1 or /dogs/1.json
   def show
+    @dog = Dog.find(params[:id])
   end
 
   # GET /dogs/new
@@ -18,6 +25,16 @@ class DogsController < ApplicationController
 
   # GET /dogs/1/edit
   def edit
+  end
+
+
+  # GET /dogs/1/search
+  def search_dog
+  if (@dog = Dog.all.find { |dog| dog.name.include?(params[:search]) })
+   redirect_to dog_path(@dog)
+  else
+  redirect_to dogs_path, notice: "Dog not found"
+  end
   end
 
   # POST /dogs or /dogs.json
@@ -66,8 +83,14 @@ class DogsController < ApplicationController
       @dog = Dog.find(params[:id])
     end
 
+  # Searching
+  def dogs_params
+    params.require(:dog).permit(:name)
+  end
+
+
     # Only allow a list of trusted parameters through.
     def dog_params
-      params.require(:dog).permit(:name, :weight, :birthdate, dog_foods_attributes: [ :id, :_destroy, :food_id ])
+      params.require(:dog).permit(:name, :weight,:image, :birthdate, dog_foods_attributes: [ :id, :_destroy, :food_id ])
     end
 end

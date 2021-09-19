@@ -6,6 +6,20 @@ class FoodsTest < ApplicationSystemTestCase
     @food = foods(:brit_care)
   end
 
+  test"load the Homepage" do
+    visit dog_foods_url
+    click_on "Home"
+    assert_selector "h1", text: "Hello There"
+  end
+
+  test"load the About page" do
+    visit dog_foods_url
+    click_on "About"
+    assert_selector "h1", text: "About us"
+    assert_selector "p", text: "We are gladd to have you here"
+  end
+
+
   test "visiting the index" do
     visit foods_url
     assert_selector "h1", text: "Foods"

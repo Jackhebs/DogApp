@@ -5,6 +5,19 @@ class DogFoodsTest < ApplicationSystemTestCase
     @dog_food = dog_foods(:dog_food1)
   end
 
+  test"load the Homepage" do
+    visit dog_foods_url
+    click_on "Home"
+    assert_selector "h1", text: "Hello There"
+  end
+
+  test"load the About page" do
+    visit dog_foods_url
+    click_on "About"
+    assert_selector "h1", text: "About us"
+    assert_selector "p", text: "We are gladd to have you here"
+  end
+
   test "visiting the index" do
     visit dog_foods_url
     assert_selector "h1", text: "Dog Foods"
@@ -49,13 +62,13 @@ class DogFoodsTest < ApplicationSystemTestCase
     visit dog_foods_url
     click_on "Edit", match: :first
 
-    select "dolar", from: "dog_food_dog_id"
+    select "chuj", from: "dog_food_dog_id"
     select "britcare", from: "dog_food_food_id"
 
-    dogs(:dog1).destroy!
-    click_on "Update Dog food"
-    sleep 10
+    dogs(:dog2).destroy!
 
+    click_on "Update Dog food"
+    sleep 6
     assert_text "Dog food was successfully updated"
     click_on "Back"
   end

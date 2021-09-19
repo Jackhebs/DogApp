@@ -17,11 +17,19 @@
 <body>
 <%= render 'application/navbar' %>
 <%#= render 'layouts/logo' %>
-<%#= render 'application/header' %>
+<%= render 'application/header' %>
 <%#= flash.to_h %>
 
+
+
+
+
+
 <div class="container">
-<%= render 'layouts/alerts' %>
+  <br>
+  <% if notice %>
+    <%= render 'layouts/alerts' %>
+  <% end %>
   <br/>
   <%= yield %>
 </div>

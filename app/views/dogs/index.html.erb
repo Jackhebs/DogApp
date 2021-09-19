@@ -1,11 +1,15 @@
-<p id="notice"><%#= notice %></p>
 
 <h1>Dogs</h1>
-
+<%= form_tag(dogs_path, method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag("Search") %>
+<% end %>
 <table class="table table-bordered">
   <thead class="thead-dark">
     <tr>
       <th>Name</th>
+      <th>Pic</th>
+      <th>Repic</th>
       <th>ID</th>
       <th>Weight</th>
       <th>Birthdate</th>
@@ -17,6 +21,8 @@
     <% @dogs.each do |dog| %>
       <tr <%= dog.valid? ? "" : "style=\"background-color:red\"".html_safe %> >
         <td><%= dog.name %></td>
+        <td><%= image_tag("logos/dog--v5.png", width: '30px') %></td>
+        <td><%=  %></td>
         <td><%= dog.id %></td>
         <td><%= dog.weight %></td>
         <td><%= dog.birthdate.to_date %></td>
