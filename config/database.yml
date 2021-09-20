@@ -27,9 +27,4 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: dogonrails_production
-  host: localhost
-  pool: 5
-  username: postgres
-  password: <%= ENV['MyDatabase_password'] %>
-  role: Myrole
+  url: <%= ENV.fetch("DATABASE_URL") %>
