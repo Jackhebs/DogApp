@@ -9,7 +9,6 @@
     <tr>
       <th>Name</th>
       <th>Pic</th>
-      <th>Repic</th>
       <th>ID</th>
       <th>Weight</th>
       <th>Birthdate</th>
@@ -21,8 +20,7 @@
     <% @dogs.each do |dog| %>
       <tr <%= dog.valid? ? "" : "style=\"background-color:red\"".html_safe %> >
         <td><%= dog.name %></td>
-        <td><%= image_tag("logos/dog--v5.png", width: '30px') %></td>
-        <td><%=  %></td>
+        <td><%= image_tag(dog.image, width: '60px') %></td>
         <td><%= dog.id %></td>
         <td><%= dog.weight %></td>
         <td><%= dog.birthdate.to_date %></td>
