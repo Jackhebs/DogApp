@@ -4,8 +4,10 @@ class Dog < ApplicationRecord
   has_one_attached :image
   has_many :dog_foods, dependent: :destroy
   scope :dog_by_name, -> { order('LOWER(name) ASC') }
-  #scope :dog_by_name33, -> {all.to_a.sort_by(&:name )}
-  #scope :name_starts_with, ->(prefix) { where("name LIKE '#{prefix}%'") }
+  scope :dog_searched, -> { where(name: name.downcase)}
+  #scope :name_includes, -> (name){ where(name: name)}
+  dogs_name = Dog.arel_table[:name]
+  scope :name_includes, -> (name){ where(dogs_name.matches("%" + name + "%"))}
   accepts_nested_attributes_for :dog_foods, allow_destroy: true
 
 

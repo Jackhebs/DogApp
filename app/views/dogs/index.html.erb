@@ -20,7 +20,11 @@
     <% @dogs.each do |dog| %>
       <tr <%= dog.valid? ? "" : "style=\"background-color:red\"".html_safe %> >
         <td><%= dog.name %></td>
-        <td><%= image_tag(dog.image, width: '60px') %></td>
+        <% if dog.image.present? && dog.image.attached? %>
+          <td><%= image_tag(dog.image, width: '60px') %></td>
+        <% else %>
+          <td><%= image_tag("logos/dog--v5.png", width: '40px') %></td>
+        <% end %>
         <td><%= dog.id %></td>
         <td><%= dog.weight %></td>
         <td><%= dog.birthdate.to_date %></td>

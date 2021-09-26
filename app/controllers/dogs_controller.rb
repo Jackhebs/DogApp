@@ -1,22 +1,23 @@
+# frozen_string_literal: true
+
 class DogsController < ApplicationController
-  before_action :set_dog, only: %i[ show edit update destroy ]
+  before_action :set_dog, only: %i[show edit update destroy]
 
   # GET /dogs or /dogs.json
   def index
-    @dogs = Dog.dog_by_name.paginate(:page=>params[:page], per_page:5)
-    if params[:search]
-     search_dog
-    @dogs = Dog.find, search_path; redirect_to => dogs_path;(@dog)
-    @dogs = Dog.dog_by_name.find
-
-    end
-
+    return search_dog if params[:search]
+    @dogs = Dog.dog_by_name.paginate(page: params[:page], per_page: 5)
+    # if params[:search]
+    #   search_dog
+    #   @dogs = Dog.find, search_path
+    #   redirect_to => dogs_path
+    #   @dogs = Dog.dog_by_name.find
+    #   @dogs = Dog.dog_searched.where
+    # end
   end
 
   # GET /dogs/1 or /dogs/1.json
-  def show
-    @dog = Dog.find(params[:id])
-  end
+  def show; end
 
   # GET /dogs/new
   def new
@@ -24,17 +25,17 @@ class DogsController < ApplicationController
   end
 
   # GET /dogs/1/edit
-  def edit
-  end
-
+  def edit; end
 
   # GET /dogs/1/search
   def search_dog
-  if (@dog = Dog.all.find { |dog| dog.name.include?(params[:search]) })
-   redirect_to dog_path(@dog)
-  else
-  redirect_to dogs_path, notice: "Dog not found"
-  end
+    if (@dog = Dog.name_includes(params[:search]).first)
+      redirect_to dog_path(@dog) # zmenit aby vracel seznam psu a ne jen prvni konkretni vysledek
+    # if (@dog = Dog.find { |dog| dog.name.downcase.include?(params[:search].downcase) })
+    #   redirect_to dog_path(@dog)
+    else
+      redirect_to dogs_path, notice: 'Dog not found'
+    end
   end
 
   # POST /dogs or /dogs.json
@@ -43,7 +44,7 @@ class DogsController < ApplicationController
 
     respond_to do |format|
       if @dog.save
-        format.html { redirect_to @dog, notice: "Dog was successfully created." }
+        format.html { redirect_to @dog, notice: 'Dog was successfully created.' }
         format.json { render :show, status: :created, location: @dog }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -56,7 +57,7 @@ class DogsController < ApplicationController
   def update
     respond_to do |format|
       if @dog.update(dog_params)
-        format.html { redirect_to @dog, notice: "Dog was successfully updated." }
+        format.html { redirect_to @dog, notice: 'Dog was successfully updated.' }
         format.json { render :show, status: :ok, location: @dog }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,30 +68,28 @@ class DogsController < ApplicationController
 
   # DELETE /dogs/1 or /dogs/1.json
   def destroy
-    @dog.dog_foods.each do |dog_food|
-      dog_food.destroy
-    end
+    @dog.dog_foods.each(&:destroy)
     @dog.destroy
     respond_to do |format|
-      format.html { redirect_to dogs_url, notice: "Dog was successfully destroyed." }
+      format.html { redirect_to dogs_url, notice: 'Dog was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dog
-      @dog = Dog.find(params[:id])
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dog
+    @dog = Dog.find(params[:id])
+  end
 
   # Searching
   def dogs_params
     params.require(:dog).permit(:name)
   end
 
-
-    # Only allow a list of trusted parameters through.
-    def dog_params
-      params.require(:dog).permit(:name, :weight,:image, :birthdate, dog_foods_attributes: [ :id, :_destroy, :food_id ])
-    end
+  # Only allow a list of trusted parameters through.
+  def dog_params
+    params.require(:dog).permit(:name, :weight, :image, :birthdate, dog_foods_attributes: %i[id _destroy food_id])
+  end
 end
