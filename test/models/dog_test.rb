@@ -1,26 +1,20 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class DogTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
 
-  test '#age - values are calculated correctly' do
-    dog = dogs(:dog1)
-    dog.birthdate = 18.months.ago
-    age = dog.age
-    assert_equal 1, age[:years]
-    assert_equal 6, age[:months]
-  end
-
-  test '#weigth - must be greater than 0' do
+  test 'the validity - weight cannot be negative' do
     dog = dogs(:dog1)
     dog.weight = -1
     refute dog.valid?
     assert_includes dog.errors[:weight], 'must be greater than 0'
   end
 
-  test '#weigth - must be less than 161' do
+  test 'the validity - weight cannot be over 161kg' do
     dog = dogs(:dog1)
     dog.weight = 169
     refute dog.valid?
@@ -28,17 +22,38 @@ class DogTest < ActiveSupport::TestCase
     assert_includes dog.errors[:weight], 'must be less than 161'
   end
 
-  test '#name - dog name length is greater than two letters' do
+  test 'the validity - name length have minimum 3 letters' do
     dog = dogs(:dog1)
     dog.name = 'ok'
     refute dog.valid?
     assert_includes dog.errors[:name], 'Dog name must be - minimum 3, maximum 10'
   end
 
-  test' invalid without name' do
+  test 'the validity - name have maximum 10 letters' do
+    dog = dogs(:dog1)
+    dog.name = 'qwertzuiopa'
+    refute dog.valid?
+    assert_includes dog.errors[:name], 'Dog name must be - minimum 3, maximum 10'
+  end
+
+  test 'the validity - name cannot be blank' do
     dog = dogs(:dog1)
     dog.name = nil
     refute dog.valid?
     assert_includes dog.errors[:name], 'can\'t be blank'
+  end
+
+  test 'the validity - weight must be a number' do
+    dog = dogs(:dog1)
+    dog.weight = 'lalal'
+    refute dog.valid?
+    assert_includes dog.errors[:weight], 'is not a number'
+  end
+
+  test 'the validity - name cannot have special letter, or numbers' do
+    dog = dogs(:dog1)
+    dog.name = 'ranař9'
+    refute dog.valid?
+    assert_includes dog.errors[:name], 'only allows letters'
   end
 end

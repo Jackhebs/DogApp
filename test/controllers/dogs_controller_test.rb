@@ -1,44 +1,52 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class DogsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @dog = dogs(:dog1)
   end
 
-  test "should get index" do
+  test 'should get search' do
+    get search_url
+    assert_response :success
+  end
+
+  test 'should get index' do
     get dogs_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_dog_url
     assert_response :success
   end
 
-  test "should create dog" do
+  test 'should create dog' do
     assert_difference('Dog.count', +1) do
-      post dogs_url, params: { dog: { birthdate: @dog.birthdate.to_s(:number), name: 'Kevin', weight: @dog.weight} }
+      post dogs_url, params: { dog: { birthdate: @dog.birthdate.to_s(:number), name: 'Kevin', weight: @dog.weight } }
     end
 
     assert_redirected_to dog_url(Dog.last)
   end
 
-  test "should show dog" do
+  test 'should show dog' do
     get dog_url(@dog)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_dog_url(@dog)
     assert_response :success
   end
 
-  test "should update dog" do
-    patch dog_url(@dog), params: { dog: { birthdate: @dog.birthdate.to_s(:number), name: @dog.name, weight: @dog.weight } }
+  test 'should update dog' do
+    patch dog_url(@dog),
+          params: { dog: { birthdate: @dog.birthdate.to_s(:number), name: @dog.name, weight: @dog.weight } }
     assert_redirected_to dog_url(@dog)
   end
 
-  test "should destroy dog" do
+  test 'should destroy dog' do
     assert_difference('Dog.count', -1) do
       delete dog_url(@dog)
     end

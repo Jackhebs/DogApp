@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Dog on Rails</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-<nav>
-  <div class="logo">
-    <h5>Dog on Rails</h5>
-  </div>
-    <ul class="nav-links">
+<nav class="navbar">
+  <div class="brand-title">Dog on Rails</div>
+  <a class="toggle-button" onclick="buttonClicked()">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </a>
+  <div class="navbar-links">
+    <ul>
       <li>
         <%= link_to 'Home',home_path, class:"nav-link" %>
       </li>
@@ -35,22 +26,6 @@
       <li>
         <%= link_to 'DogFood',dog_foods_path, class:"nav-link" %>
       </li>
-
     </ul>
-
-
-  <%#= form_tag dogs_path, :method => "get" do %>
-    <%#= label_tag(:search, "What you are searching") %>
-    <%#= text_field_tag :search, params[:search] %>
-    <%#= submit_tag("Search", :name => nil) %>
-  <% #end %>
-
-  <div class="mobile">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
   </div>
 </nav>
-</body>
-
-</html>

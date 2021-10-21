@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DogFoodsController < ApplicationController
-  before_action :set_dog_food, only: %i[ show edit update destroy ]
+  before_action :set_dog_food, only: %i[show edit update destroy]
 
   # GET /dog_foods or /dog_foods.json
   def index
@@ -7,8 +9,7 @@ class DogFoodsController < ApplicationController
   end
 
   # GET /dog_foods/1 or /dog_foods/1.json
-  def show
-  end
+  def show; end
 
   # GET /dog_foods/new
   def new
@@ -16,8 +17,7 @@ class DogFoodsController < ApplicationController
   end
 
   # GET /dog_foods/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /dog_foods or /dog_foods.json
   def create
@@ -25,7 +25,7 @@ class DogFoodsController < ApplicationController
 
     respond_to do |format|
       if @dog_food.save
-        format.html { redirect_to @dog_food, notice: "Dog food was successfully created." }
+        format.html { redirect_to @dog_food, notice: 'Dog food was successfully created.' }
         format.json { render :show, status: :created, location: @dog_food }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class DogFoodsController < ApplicationController
   def update
     respond_to do |format|
       if @dog_food.update(dog_food_params)
-        format.html { redirect_to @dog_food, notice: "Dog food was successfully updated." }
+        format.html { redirect_to @dog_food, notice: 'Dog food was successfully updated.' }
         format.json { render :show, status: :ok, location: @dog_food }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,19 +51,20 @@ class DogFoodsController < ApplicationController
   def destroy
     @dog_food.destroy
     respond_to do |format|
-      format.html { redirect_to dog_foods_url, notice: "Dog food was successfully destroyed." }
+      format.html { redirect_to dog_foods_url, notice: 'Dog food was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dog_food
-      @dog_food = DogFood.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def dog_food_params
-      params.require(:dog_food).permit(:dog_id, :food_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dog_food
+    @dog_food = DogFood.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def dog_food_params
+    params.require(:dog_food).permit(:dog_id, :food_id)
+  end
 end

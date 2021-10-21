@@ -5,15 +5,10 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
-    return search_dog if params[:search]
+    # return search_dog if params[:search]
+
     @dogs = Dog.dog_by_name.paginate(page: params[:page], per_page: 5)
-    # if params[:search]
-    #   search_dog
-    #   @dogs = Dog.find, search_path
-    #   redirect_to => dogs_path
-    #   @dogs = Dog.dog_by_name.find
-    #   @dogs = Dog.dog_searched.where
-    # end
+    @dogs = @dogs.name_includes(params[:search]) if params[:search].present?
   end
 
   # GET /dogs/1 or /dogs/1.json
@@ -30,13 +25,13 @@ class DogsController < ApplicationController
   # GET /dogs/1/search
   def search_dog
     if (@dog = Dog.name_includes(params[:search]).first)
-      redirect_to dog_path(@dog) # zmenit aby vracel seznam psu a ne jen prvni konkretni vysledek
-    # if (@dog = Dog.find { |dog| dog.name.downcase.include?(params[:search].downcase) })
-    #   redirect_to dog_path(@dog)
+      redirect_to @dog, notice: 'Dog searched'
     else
       redirect_to dogs_path, notice: 'Dog not found'
     end
   end
+
+  def filter_by_name; end
 
   # POST /dogs or /dogs.json
   def create
@@ -81,11 +76,6 @@ class DogsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_dog
     @dog = Dog.find(params[:id])
-  end
-
-  # Searching
-  def dogs_params
-    params.require(:dog).permit(:name)
   end
 
   # Only allow a list of trusted parameters through.

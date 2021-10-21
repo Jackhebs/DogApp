@@ -1,23 +1,14 @@
 # frozen_string_literal: true
 
 class Dog < ApplicationRecord
+  include Filters
   has_one_attached :image
   has_many :dog_foods, dependent: :destroy
-  scope :dog_by_name, -> { order('LOWER(name) ASC') }
-  scope :dog_searched, -> { where(name: name.downcase)}
-  #scope :name_includes, -> (name){ where(name: name)}
-  dogs_name = Dog.arel_table[:name]
-  scope :name_includes, -> (name){ where(dogs_name.matches("%" + name + "%"))}
-  accepts_nested_attributes_for :dog_foods, allow_destroy: true
-
-
-
-
 
   validates :name,
             presence: true,
             format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' },
-            length: { minimum: 3, message:'Dog name must be - minimum 3, maximum 10', maximum: 10,},
+            length: { minimum: 3, message: 'Dog name must be - minimum 3, maximum 10', maximum: 10 },
             uniqueness: { case_sensitive: false }
   validates :weight,
             presence: true,
@@ -25,16 +16,12 @@ class Dog < ApplicationRecord
   validates :birthdate,
             presence: true
 
-  def information; end
+  scope :dog_by_name, -> { order('LOWER(name) ASC') }
+  scope :name_includes, ->(name) { where(Dog.arel_table[:name].matches("%#{name}%")).order(name: :asc) }
+  # scope :filtered, ->(name) { dog.dog.new.filter(self, name) }
+  # scope :dog_with_name, ->(name) { where(Dog[:name].matches(order('ASC' "%#{name}%"))) }
 
-  def age
-    months = ((Time.current - birthdate) / (60 * 60 * 24 * 30)).to_i
-
-    {
-      years: (months / 12).to_i,
-      months: (months % 12)
-    }
-  end
+  accepts_nested_attributes_for :dog_foods, allow_destroy: true
 
   def all_dog_foods
     res = []
