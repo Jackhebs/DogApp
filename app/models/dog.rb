@@ -18,9 +18,6 @@ class Dog < ApplicationRecord
 
   scope :dog_by_name, -> { order('LOWER(name) ASC') }
   scope :name_includes, ->(name) { where(Dog.arel_table[:name].matches("%#{name}%")).order(name: :asc) }
-  # scope :filtered, ->(name) { dog.dog.new.filter(self, name) }
-  # scope :dog_with_name, ->(name) { where(Dog[:name].matches(order('ASC' "%#{name}%"))) }
-
   accepts_nested_attributes_for :dog_foods, allow_destroy: true
 
   def all_dog_foods

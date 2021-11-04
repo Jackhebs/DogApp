@@ -31,8 +31,6 @@ class DogsController < ApplicationController
     end
   end
 
-  def filter_by_name; end
-
   # POST /dogs or /dogs.json
   def create
     @dog = Dog.new(dog_params)

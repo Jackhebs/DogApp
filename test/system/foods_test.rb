@@ -59,4 +59,17 @@ class FoodsTest < ApplicationSystemTestCase
 
     assert_text 'Food was successfully destroyed'
   end
+
+  test 'should show food' do
+    visit foods_path
+    click_on 'Show', :match => :first
+  end
+
+  test 'should not DELETE' do
+    visit dogs_url
+    page.dismiss_confirm do
+      click_on 'Destroy', :match => :first
+    end
+    refute_text 'Food was successfully destroyed'
+  end
 end

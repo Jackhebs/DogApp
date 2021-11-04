@@ -73,7 +73,7 @@ class DogsTest < ApplicationSystemTestCase
     assert_text 'Dog was successfully created'
   end
 
-  test 'if empty => error' do
+  test 'should raise an error' do
     visit dogs_url
     click_on 'New Dog'
     fill_in 'Name', with: nil
@@ -128,8 +128,31 @@ class DogsTest < ApplicationSystemTestCase
 
   test 'search dog' do
     visit dogs_url
+    assert_text 'Mia'
+    assert_text 'dolar'
+    assert_text 'chuj'
     assert_field 'search'
     fill_in 'search', with: 'Dolar'
     click_on 'Search'
+    assert_text 'dolar'
+    refute_text 'Mia'
+    refute_text 'chuj'
+  end
+
+  test 'should show blank page' do
+    visit dogs_url
+    assert_text 'dolar'
+    assert_text 'Mia'
+    assert_text 'chuj'
+    sleep 2
+    fill_in 'search', with: 'blah'
+    click_on 'Search'
+    sleep 2
+  end
+
+  test 'should show the dog' do
+    visit dogs_path
+    click_on 'Show', :match => :first
+    sleep 2
   end
 end
